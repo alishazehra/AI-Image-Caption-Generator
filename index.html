@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Image Caption Generator (Vue)</title>
+
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <style>
+    body{
+      font-family: Arial;
+      background:#f4f4f4;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      margin:0;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      border-radius:12px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.1);
+      text-align:center;
+      width:320px;
+    }
+
+    h1{
+      font-size:20px;
+      margin-bottom:15px;
+      color:#7b2ff7;
+    }
+
+    input{
+      margin-bottom:10px;
+    }
+
+    img{
+      width:100%;
+      margin-top:10px;
+      border-radius:8px;
+    }
+
+    button{
+      margin-top:10px;
+      padding:10px;
+      background:#7b2ff7;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      width:100%;
+    }
+
+    button:hover{
+      background:#5a1fd8;
+    }
+
+    p{
+      margin-top:10px;
+      font-size:14px;
+      color:#333;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="app" class="container">
+
+  <h1>AI Image Caption Generator</h1>
+
+  <input type="file" @change="previewImage">
+
+  <img v-if="image" :src="image">
+
+  <button @click="generateCaption">Generate Caption</button>
+
+  <p>{{ caption }}</p>
+
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+  data(){
+    return {
+      image: null,
+      caption: "",
+      captions: [
+        "A beautiful natural scene.",
+        "A person enjoying a moment.",
+        "An aesthetically pleasing composition.",
+        "A modern and creative visual.",
+        "An object displayed in a clean setting."
+      ]
+    }
+  },
+
+  methods:{
+    previewImage(event){
+      const file = event.target.files[0];
+      this.image = URL.createObjectURL(file);
+    },
+
+    generateCaption(){
+      const random = this.captions[Math.floor(Math.random() * this.captions.length)];
+      this.caption = random;
+    }
+  }
+}).mount("#app");
+</script>
+
+</body>
+</html>
